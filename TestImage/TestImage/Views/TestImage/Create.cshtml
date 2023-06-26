@@ -1,0 +1,53 @@
+﻿@model TestImage.Models.Tblimage
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm("Create", "TestImage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+//here inside the () braces of BeginForm we are gonna pass terms that are used to create the url for the uploaded image.Note that the image that we uploasd is stored in the server side  in the form of a url that we create heree
+//here the first term is Action name,second is controller name,third is FormMethod.get/post ,forth is a property
+//The value "multipart/form-data" is specifically used when you want to include binary data, such as files, in the form submission.
+// enctype="multipart/form-data", you are indicating that the form may contain files that need to be uploaded to the server.
+// the enctype attribute is used to specify how the data from a form will be encoded before it is sent to the server when the form is submitted.
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 m-2">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 m-2">
+                <input type="file" name="ImageFile" />
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10 m-2">
+                <input type="submit" value="Create" class="btn btn-primary" />
+
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
